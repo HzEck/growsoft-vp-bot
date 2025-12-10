@@ -4,7 +4,7 @@ from discord.ext import tasks
 import asyncio
 import os 
 
-TOKEN = os.environ.get("MTQzMDgzMDYzMjE5MTI2NjkyOA.GlFfWB.XJb7pmVUXxXyC_bEdMooWunXKS1iPJi3sdkHaY") 
+TOKEN = os.environ.get("DISCORD_TOKEN")
 
 VOICE_CHANNEL_ID = 1448444047730671798 
 ALLOWED_CHANNEL_ID = 1418862604348031007 # << BURAYA KOMUT KANALI ID'SİNİ YAZIN!
@@ -65,4 +65,5 @@ if __name__ == "__main__":
         try:
             client.run(TOKEN)
         except discord.HTTPException as e:
+
             print(f"HATA: Discord API Hatası. Token yanlış veya Intent'ler eksik. Hata kodu: {e.status}")
