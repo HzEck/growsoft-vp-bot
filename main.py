@@ -27,7 +27,7 @@ def run_flask():
 TOKEN = os.environ.get("DISCORD_TOKEN") 
 
 VOICE_CHANNEL_ID = 1448444047730671798 
-ALLOWED_CHANNEL_ID = 0 # << BURAYA KOMUT KANALI ID'SİNİ YAZIN!
+ALLOWED_CHANNEL_ID = 1449082803739164734 # << BURAYA KOMUT KANALI ID'SİNİ YAZIN!
 
 VP_AMOUNT = 1 
 INTERVAL_MINUTES = 1
@@ -92,4 +92,5 @@ if __name__ == "__main__":
             client.run(TOKEN)
         except discord.HTTPException as e:
             print(f"HATA: Discord API Hatası. Token yanlış veya Intent'ler eksik. Hata kodu: {e.status}")
+
 
