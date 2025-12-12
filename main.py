@@ -1,16 +1,37 @@
-# main.py
+# main.py (YENİ VE GÜNCELLENMİŞ VERSİYON)
 import discord
 from discord.ext import tasks
 import asyncio
 import os 
+from flask import Flask
+import threading # Yeni bir süreci başlatmak için
 
-TOKEN = os.environ.get("DISCORD_TOKEN")
+# ================= FLASK WEB SUNUCUSU (RENDER İÇİN ZORUNLU) =================
+app = Flask(__name__)
+
+# Render bu adrese bağlandığında "Bot çalışıyor" mesajı görecek.
+@app.route('/')
+def home():
+    return "GrowSoft VP Bot is running!"
+
+# Flask sunucusunu ayrı bir süreçte başlatacak fonksiyon
+def run_flask():
+    # Render, PORT adında bir Ortam Değişkeni verir, onu kullanıyoruz.
+    port = int(os.environ.get('PORT', 5000)) 
+    app.run(host='0.0.0.0', port=port)
+
+# =============================================================================
+
+
+# ================= BOT AYARLARI =================
+TOKEN = os.environ.get("DISCORD_TOKEN") 
 
 VOICE_CHANNEL_ID = 1448444047730671798 
-ALLOWED_CHANNEL_ID = 1418862486974763071 # << BURAYA KOMUT KANALI ID'SİNİ YAZIN!
+ALLOWED_CHANNEL_ID = 0 # << BURAYA KOMUT KANALI ID'SİNİ YAZIN!
 
 VP_AMOUNT = 1 
-INTERVAL_MINUTES = 3
+INTERVAL_MINUTES = 15
+# ========================================================
 
 class VPCommander(discord.Client):
     def __init__(self, *args, **kwargs):
@@ -59,13 +80,15 @@ intents.voice_states = True
 client = VPCommander(intents=intents)
 
 if __name__ == "__main__":
+    # Flask sunucusunu ayrı bir thread'de (süreçte) başlat
+    flask_thread = threading.Thread(target=run_flask)
+    flask_thread.start()
+    
+    # Discord Botunu ana süreçte başlat
     if not TOKEN:
         print("HATA: DISCORD_TOKEN ortam değişkeni ayarlanmamış!")
     else:
         try:
             client.run(TOKEN)
         except discord.HTTPException as e:
-
             print(f"HATA: Discord API Hatası. Token yanlış veya Intent'ler eksik. Hata kodu: {e.status}")
-
-
