@@ -7,7 +7,7 @@ import os
 TOKEN = os.environ.get("DISCORD_TOKEN")
 
 VOICE_CHANNEL_ID = 1448444047730671798 
-ALLOWED_CHANNEL_ID = 1418862604348031007 # << BURAYA KOMUT KANALI ID'SİNİ YAZIN!
+ALLOWED_CHANNEL_ID = 1418862486974763071 # << BURAYA KOMUT KANALI ID'SİNİ YAZIN!
 
 VP_AMOUNT = 1 
 INTERVAL_MINUTES = 5 
@@ -67,3 +67,4 @@ if __name__ == "__main__":
         except discord.HTTPException as e:
 
             print(f"HATA: Discord API Hatası. Token yanlış veya Intent'ler eksik. Hata kodu: {e.status}")
+
